@@ -1,0 +1,16 @@
+mat-toolbar {
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.mouseHover:hover {
+  cursor: pointer;
+  transition: all 0.6 ease-in-out;
+}
