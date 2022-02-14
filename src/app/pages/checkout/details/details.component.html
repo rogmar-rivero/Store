@@ -1,0 +1,28 @@
+<table mat-table [dataSource]="cart$" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="item">
+    <th mat-header-cell *matHeaderCellDef> item </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+  
+  <ng-container matColumnDef="quantity">
+    <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+    <td mat-cell *matCellDef="let element"> {{ element.quantity }} </td>
+  </ng-container>
+  <ng-container matColumnDef="priceUnit">
+    <th mat-header-cell *matHeaderCellDef> Price / Unidad </th>
+    <td mat-cell *matCellDef="let element"> {{element.price | currency }} </td>
+  </ng-container>
+  <ng-container matColumnDef="subTotal">
+    <th mat-header-cell *matHeaderCellDef> subTotal </th>
+    <td mat-cell *matCellDef="let element"> {{element.quantity * element.price | currency }} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+</table>
+
+<div *ngIf="total$" class="total">
+    <p>Total: <span>{{ total$ | async | currency }}</span></p>
+</div>
