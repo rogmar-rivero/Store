@@ -1,4 +1,4 @@
-# Stores
+# Store
 
 Este proyecto se basa en una tienda Online de recursos de TI.
 
