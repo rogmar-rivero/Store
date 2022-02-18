@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CheckoutRoutingModule } from './checkout-routing.module';
 import { CheckoutComponent } from './checkout.component';
 import { MaterialModule } from 'src/app/material.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DetailsComponent } from './details/details.component';
 
 
@@ -18,6 +18,7 @@ import { DetailsComponent } from './details/details.component';
     CheckoutRoutingModule,
     FormsModule,
     MaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class CheckoutModule { }

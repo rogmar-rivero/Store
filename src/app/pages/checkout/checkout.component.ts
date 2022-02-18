@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { delay, switchMap,tap } from 'rxjs';
 
@@ -24,31 +24,37 @@ export class CheckoutComponent implements OnInit {
   isDelivery: boolean = false;
   cart: Product[] = [];
 
-  model = {
-    name: '',
-    store: '',
-    city: '',
-    shippingAddress: ''
-  };
+  checkoutForm!: FormGroup;
 
   constructor(private storeSvc: StoreService,
       private orderSvc: OderService,
       private shoppingCartSvc: ShoppingCartServices,
       private route: Router,
-      private productsSvc: ProductsService
+      private productsSvc: ProductsService,
+      private readonly fb: FormBuilder
   ){ }
 
   ngOnInit(): void {
     this.getStores();
     this.getDataCart();
     this.preparateDetils();
+    this.checkoutForm = this.instantForm();
   }
 
-  onSubmit({value:formData}:NgForm){
-    console.log("guardar =>",formData);
+  
+  instantForm():FormGroup {
+    return this.fb.group({
+      name: ['',[Validators.required,Validators.minLength(4)]],
+      store: ["",Validators.required],
+    })
+  }
+
+
+  onSubmit({value}:FormGroup){
+    console.log("guardar =>",value);
 
     const data:Order = {
-      ...formData,
+      ...value,
       date: this.getCurrentDate(),
       pickup: this.isDelivery
     }
@@ -75,7 +81,8 @@ export class CheckoutComponent implements OnInit {
   private getStores(){
     this.storeSvc.getStores()
     .pipe( 
-      tap((store:Stores[]) => this.stores = store)
+      tap((store:Stores[]) => this.stores = store),
+      tap(res => console.log(res))
     )
     .subscribe();
   }
