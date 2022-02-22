@@ -9,12 +9,15 @@
     name="name"
     placeholder="Nombre"
     >
-  <mat-error *ngIf="">
-    Name is required
+  <mat-error *ngIf=" checkoutForm.get('name')?.touched && checkoutForm.get('name')?.errors?.['required']">
+    El Campo es requerido.
+  </mat-error>
+  <mat-error *ngIf="checkoutForm.get('name')?.touched && checkoutForm.get('name')?.errors?.['minlength']">
+    No puede ser menor a {{ checkoutForm.get('name')?.errors?.['minlength'].requiredLength }}
   </mat-error>
   </mat-form-field>
 
-  <mat-radio-group class="form__element">
+  <mat-radio-group formControlName="delivery" class="form__element">
     <p>Escoja una opcion</p>
     <div class="btns">
       <mat-radio-button
@@ -28,6 +31,10 @@
       (change)="onPickupOrDelivery(true)"
       >Delivery</mat-radio-button>
     </div>
+
+    <mat-error *ngIf="checkoutForm.get('delivery')?.errors?.['required']">
+      Este Campo es requerido.
+    </mat-error>
   </mat-radio-group>
 
   <ng-container *ngIf="isDelivery; else showStores">
