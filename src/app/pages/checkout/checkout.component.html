@@ -31,10 +31,6 @@
       (change)="onPickupOrDelivery(true)"
       >Delivery</mat-radio-button>
     </div>
-
-    <mat-error *ngIf="checkoutForm.get('delivery')?.errors?.['required']">
-      Este Campo es requerido.
-    </mat-error>
   </mat-radio-group>
 
   <ng-container *ngIf="isDelivery; else showStores">
