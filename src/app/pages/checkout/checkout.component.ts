@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { delay, switchMap,tap } from 'rxjs';
@@ -29,7 +29,7 @@ export class CheckoutComponent implements OnInit {
   constructor(private storeSvc: StoreService,
       private orderSvc: OderService,
       private shoppingCartSvc: ShoppingCartServices,
-      private route: Router,
+      private readonly route: Router,
       private productsSvc: ProductsService,
       private readonly fb: FormBuilder
   ){ }
@@ -44,14 +44,12 @@ export class CheckoutComponent implements OnInit {
   
   instantForm():FormGroup {
     return this.fb.group({
-      name: ['',[Validators.required,Validators.minLength(4)]],
-      store: ["",Validators.required],
-    })
-  }
-
+        name: ['',[Validators.required,Validators.minLength(4)]],
+        store: ['',Validators.required],
+      })
+    }
 
   onSubmit({value}:FormGroup){
-    console.log("guardar =>",value);
 
     const data:Order = {
       ...value,
@@ -82,13 +80,12 @@ export class CheckoutComponent implements OnInit {
     this.storeSvc.getStores()
     .pipe( 
       tap((store:Stores[]) => this.stores = store),
-      tap(res => console.log(res))
     )
     .subscribe();
   }
 
   private getCurrentDate():string {
-    return new Date().toLocaleDateString();
+    return new Date().toLocaleDateString();                  
   }
 
   private preparateDetils(): Details[] {

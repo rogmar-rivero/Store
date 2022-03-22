@@ -6,11 +6,13 @@
     matInput
     required
     formControlName="name"
-    name="name"
     placeholder="Nombre"
     >
-  <mat-error *ngIf="">
-    Name is required
+  <mat-error *ngIf=" checkoutForm.get('name')?.touched && checkoutForm.get('name')?.errors?.['required']">
+    El Campo es requerido.
+  </mat-error>
+  <mat-error *ngIf="checkoutForm.get('name')?.touched && checkoutForm.get('name')?.errors?.['minlength']">
+    No puede ser menor a {{ checkoutForm.get('name')?.errors?.['minlength'].requiredLength }}
   </mat-error>
   </mat-form-field>
 
@@ -36,15 +38,15 @@
       <input 
       matInput
       placeholder="Ciudad"
-      name="city"
-      >    
+      formControlName="city"
+      >  
     </mat-form-field>
 
     <mat-form-field class="form__element">
       <input 
       matInput
       placeholder="Dirrección de envio"
-      name="shippingAddress"
+      formControlName="shippingAddress"
       >    
     </mat-form-field>
  
@@ -59,6 +61,9 @@
           {{ tienda.name }} - {{tienda.openingHours }}  
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="checkoutForm.get('store')?.touched && checkoutForm.get('store')?.errors?.['required']">
+        Seleccione una tienda donde recoger el pedido
+      </mat-error>
     </mat-form-field>
   
   </ng-template>
