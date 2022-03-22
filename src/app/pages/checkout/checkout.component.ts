@@ -44,19 +44,10 @@ export class CheckoutComponent implements OnInit {
   
   instantForm():FormGroup {
     return this.fb.group({
-<<<<<<< HEAD
         name: ['',[Validators.required,Validators.minLength(4)]],
         store: ['',Validators.required],
       })
     }
-=======
-      name: ['',[Validators.required,Validators.minLength(4)]],
-      delivey: [this.isDelivery,Validators.required],
-      store: ['',Validators.required],
-    })
-  }
-
->>>>>>> 13154ed078be6896e84661c7cd9340bea602746d
 
   onSubmit({value}:FormGroup){
 
